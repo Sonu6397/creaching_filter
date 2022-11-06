@@ -1,0 +1,113 @@
+﻿@model ManualReadingopration.Models.ManualModel
+<h3 class="class=" btn btn-default">
+    <a class="btn btn-primary float-right" href="@Url.Action("Create", "Home")"><i class="ti-plus"></i>Add New</a>
+</h3>
+@Html.Raw(TempData["inserted"])
+@Html.Raw(TempData["updated"])
+
+<center>
+    <table border="0" cellspacing="5" cellpadding="5">
+        <tbody style="display:flex;">
+            <tr>
+                <td>Start date</td>
+                <td><input type="text" id="min" name="min"></td>
+            </tr>
+
+            <tr>
+                <td>End date</td>
+                <td><input type="text" id="max" name="max"></td>
+            </tr>
+        </tbody>
+    </table>
+</center>
+
+<table class=" table table-bordered text-center" id="example">
+    <thead>
+        <tr style="background: blue; color:white">
+            <th>SiteId</th>
+            <th>DataBaseName</th>
+            <th>MeterId</th>
+            <th>MainReading</th>
+            <th>DG_Reading</th>
+            <th>Engineer_Name</th>
+            <th>joiningdate</th>
+            <th>Edit</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="Search">
+                <td>@item.SiteId</td>
+                <td>@item.DataBaseName</td>
+                <td>@item.MeterId</td>
+                <td>@item.MainReading</td>
+                <td>@item.DG_reading</td>
+                <td>@item.Engineer_Name</td>
+                <td>@item.joiningdate</td>
+                <td><a class="btn btn-default" href="@Url.Action("Edit","Home",new { siteId=item.SiteId})">Edit</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section scripts{
+
+    <script type="text/javascript" src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.2/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/datetime/1.1.2/js/dataTables.dateTime.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/datetime/1.1.2/css/dataTables.dateTime.min.css" />
+
+    <script>
+        var minDate, maxDate;
+        $(document).ready(function () {
+
+            // Create date inputs
+            minDate = new DateTime($('#min'), {
+                format: 'YYYY MM DD'
+            });
+            maxDate = new DateTime($('#max'), {
+                format: 'YYYY MM DD'
+            });
+
+            // DataTables initialisation
+            var table = $('#example').DataTable();
+
+            // Refilter the table
+            $('#min, #max').on('change', function () {
+                table.draw();
+            });
+
+            $.fn.dataTable.ext.search.push(
+                function (settings, data, dataIndex) {
+
+                    var min = minDate.val();
+                    var max = maxDate.val();
+                    var date = new Date(data[6]);
+
+                    if (
+                        (min === null && max === null) ||
+                        (min === null && date <= max) ||
+                        (min <= date && max === null) ||
+                        (min <= date && date <= max)
+                    ) {
+
+                        return true;
+                    }
+                    return false;
+                }
+            );
+        });
+
+    </script>
+}
+
+
+<style>
+    td, th {
+        padding: 5px;
+    }
+</style>
+
+

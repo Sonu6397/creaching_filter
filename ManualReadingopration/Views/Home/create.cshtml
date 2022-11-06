@@ -1,0 +1,93 @@
+﻿@model ManualReadingopration.Models.ManualModel
+
+@{
+    ViewBag.Title = "create";
+}
+@using (Html.BeginForm("create", "home", FormMethod.Post))
+{
+    @Html.HiddenFor(m => m.SiteId)
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.DataBaseName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.DataBaseName, new SelectList(new[] { "ORRIS_PREMIER", "IMPERIA_ESFERA_EWS", "TestDB", "KHUSHIAPT", "AIPLGURGAON", "AJNARA", "Ajnara_Comm", "AmraPali", "AMRAPALI_COMMERCIAL", "Amrapali_Titanium", "Amrapali_Zodiac", "ASSOTECH", "ASSOTECH_II", "ASTERCOURT", "BPTP_GRANDURA", "BPTP_PRINCESSPARK", "BPTP_RESORT", "DIVYANSH", "DreamCity", "EELDECO_LUDHIYANA", "Eledico", "ERA", "EXOTICA", "IMPERIA", "IMPERIA_ESFERA", "IMPERIASHOPS", "JME_II", "LotosPanache", "Hamilton_Height", "LOTUS_ZING", "Mirzapur", "NTPC_DWARKA", "OPCHAIN", "opchaincomm", "ORRIS", "PARASIRENE", "Parkfloor1", "PARKVIEW", "PIEDMONT", "PURI", "RADHAVALLEY", "RDEE_CITY", "RPS", "RPS_FACILITIES", "RPSCOMM", "RPSEWS", "SARE_AMRITSAR", "SHRIGROUP", "SRP_BUILDWELL", "VARUN_SOCIETY", "Pesdemo", "Pes2", "PES4", "EledecoLudhianaNew", "PARKVIEWSHOPS", "ANSAL_KARNAL", "OMAXE", "IMPERIA_MINDSPACE", "AjnaraIntegrity", "Eldeco_Ludhiana", "EldecoP1D1", "Ferrous", "TestPowerLine", "AIPL_COMM", "IMPERIA_MINDSPACE_COMM", "BPTP_Villa_F", "Crescent_Parc", "EledecoLudhianaNew", "BPTP_Block_G", "AJNARA1", "YMCA", "BPTP_Block_M", "BPTP_BLOCK_M1", "LOGICC0UNTY_SHOP", "BPTP_Block_N", "Parkfloor2", "DMRC", "LogicCounty11", "ELDECO_COUNTY", "MahagunModerneTemp", "LOGICCOUNTY_SHOP", "LOGICCOUNTY_SHOP", "MahagunModerneHistory", "MahagunMart", "MahagunModerne", "LOGICCOUNTY_SHOP" }), "--Select DataBaseName---", new { @Class = "form-control", @required = "required" })
+                @Html.ValidationMessageFor(model => model.DataBaseName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MeterId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MeterId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MeterId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.MainReading, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MainReading, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MainReading, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.DG_reading, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.DG_reading, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DG_reading, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Engineer_Name, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Engineer_Name, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Engineer_Name, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.joiningdate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.joiningdate, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.ValidationMessageFor(model => model.joiningdate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        @{
+            if (ViewBag.Edit == "Edit")
+
+            {
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="update" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Submit" class="btn btn-success" />
+                    </div>
+                </div>
+            }
+        }
+    </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
